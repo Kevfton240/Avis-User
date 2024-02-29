@@ -23,7 +23,7 @@ public class ValidationService {
         validation.setUtilisateur(utilisateur);
 
         Instant creation = Instant.now();
-        validation.setCreation(creation);  // Utilisez setCreation pour définir la valeur de creation
+        validation.setCreation(creation);
 
         Instant expiration = creation.plus(10, ChronoUnit.MINUTES);
         validation.setExpire(expiration);
@@ -31,7 +31,7 @@ public class ValidationService {
         Random random = new Random();
         int randomInteger = random.nextInt(9999999);
         String code = String.format("%06d", randomInteger);
-        validation.setCode(code);  // Assurez-vous d'utiliser la méthode appropriée pour définir le code
+        validation.setCode(code);
 
         this.validationRepository.save(validation);
         this.notificationService.envoyer(validation);

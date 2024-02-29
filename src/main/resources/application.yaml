@@ -10,9 +10,11 @@ spring:
       ddl-auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-  server:
-    port: 5000
+
 
   mail:
     host: localhost
     port: 9025
+
+    server:
+      port: 9191

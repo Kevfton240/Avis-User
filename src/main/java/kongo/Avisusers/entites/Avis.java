@@ -18,4 +18,6 @@ public class Avis {
     private int Id;
     private String message;
     private String status;
+    @ManyToOne
+    private Utilisateur utilisateur;
 }

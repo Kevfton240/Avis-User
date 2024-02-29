@@ -7,7 +7,10 @@ import kongo.Avisusers.entites.Utilisateur;
 import kongo.Avisusers.entites.Validation;
 import kongo.Avisusers.repository.UtilisateurRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,11 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 
+
+
 @AllArgsConstructor
 @Service
-public class UtilisateurService {
+public class UtilisateurService implements UserDetailsService{
 
     private UtilisateurRepository utilisateurRepository;
     private BCryptPasswordEncoder passwordEncoder;
@@ -56,4 +61,11 @@ public class UtilisateurService {
         this.utilisateurRepository.save(utilisateurActiver);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.utilisateurRepository.
+                findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Aucun utilisateur ne correspand"));
+
+    }
 }
